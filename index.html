@@ -88,11 +88,45 @@
         <td>afghani Mandi special</td>
         <td>Warangal</td>
         <td>12</td>
-    </tr>
-
-    
+    </tr>   
 </table>
-
-
+<hr>
+<h2>Fenwick Tree</h2>
+<blockquote>
+    Fenwick Tree is also called as Binary Indexed Tree. It is represented as an array. Let the array be BITree[]. Each node of the Binary Indexed Tree stores the sum of some elements of the input array. The size of the Binary Indexed Tree is equal to the size of the input array, denoted as n. In the code below, we use a size of n+1 for ease of implementation.
+</blockquote>
+<a href ="https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/">click here to Fenwick tree</a>
+<pre>
+    struct FenwickTree {
+        vector<int> bit;  // binary indexed tree
+        int n;
+    
+        FenwickTree(int n) {
+            this->n = n;
+            bit.assign(n, 0);
+        }
+    
+        FenwickTree(vector<int> a) : FenwickTree(a.size()) {
+            for (size_t i = 0; i < a.size(); i++)
+                add(i, a[i]);
+        }
+    
+        int sum(int r) {
+            int ret = 0;
+            for (; r >= 0; r = (r & (r + 1)) - 1)
+                ret += bit[r];
+            return ret;
+        }
+    
+        int sum(int l, int r) {
+            return sum(r) - sum(l - 1);
+        }
+    
+        void add(int idx, int delta) {
+            for (; idx < n; idx = idx | (idx + 1))
+                bit[idx] += delta;
+        }
+    };
+</pre>
 </body>
 </html>
